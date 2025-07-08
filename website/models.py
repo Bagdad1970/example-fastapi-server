@@ -29,8 +29,7 @@ class OAuth2Client(Base, OAuth2ClientMixin):
     __tablename__ = 'oauth2_client'
 
     id = mapped_column(Integer, primary_key=True)
-    user_id = mapped_column(
-        Integer, ForeignKey('user.id', ondelete='CASCADE'))
+    user_id = mapped_column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
     user = relationship('User')
 
 
@@ -39,7 +38,7 @@ class OAuth2AuthorizationCode(Base, OAuth2AuthorizationCodeMixin):
 
     id = mapped_column(Integer, primary_key=True)
     user_id = mapped_column(
-        Integer, ForeignKey('user.id', ondelete='CASCADE'))
+        Integer, ForeignKey('users.id', ondelete='CASCADE'))
     user = relationship('User')
 
 
@@ -48,7 +47,7 @@ class OAuth2Token(Base, OAuth2TokenMixin):
 
     id = mapped_column(Integer, primary_key=True)
     user_id = mapped_column(
-        Integer, ForeignKey('user.id', ondelete='CASCADE'))
+        Integer, ForeignKey('users.id', ondelete='CASCADE'))
     user = relationship('User')
 
     def is_refresh_token_active(self):
