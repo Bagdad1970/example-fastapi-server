@@ -37,8 +37,7 @@ class OAuth2AuthorizationCode(Base, OAuth2AuthorizationCodeMixin):
     __tablename__ = 'oauth2_code'
 
     id = mapped_column(Integer, primary_key=True)
-    user_id = mapped_column(
-        Integer, ForeignKey('users.id', ondelete='CASCADE'))
+    user_id = mapped_column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
     user = relationship('User')
 
 
