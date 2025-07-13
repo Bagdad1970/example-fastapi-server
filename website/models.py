@@ -9,7 +9,7 @@ from authlib.integrations.sqla_oauth2 import (
 )
 
 
-class User(Base):
+class Users(Base):
     __tablename__ = "users"
 
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -30,7 +30,7 @@ class OAuth2Client(Base, OAuth2ClientMixin):
 
     id = mapped_column(Integer, primary_key=True)
     user_id = mapped_column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
-    user = relationship('User')
+    user = relationship('Users')
 
 
 class OAuth2AuthorizationCode(Base, OAuth2AuthorizationCodeMixin):
@@ -38,16 +38,15 @@ class OAuth2AuthorizationCode(Base, OAuth2AuthorizationCodeMixin):
 
     id = mapped_column(Integer, primary_key=True)
     user_id = mapped_column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
-    user = relationship('User')
+    user = relationship('Users')
 
 
 class OAuth2Token(Base, OAuth2TokenMixin):
     __tablename__ = 'oauth2_token'
 
     id = mapped_column(Integer, primary_key=True)
-    user_id = mapped_column(
-        Integer, ForeignKey('users.id', ondelete='CASCADE'))
-    user = relationship('User')
+    user_id = mapped_column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
+    user = relationship('Users')
 
     def is_refresh_token_active(self):
         if self.revoked:
