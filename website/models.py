@@ -2,7 +2,7 @@ import time
 from sqlalchemy.orm import mapped_column, relationship
 from database import Base
 from sqlalchemy import String, Integer, ForeignKey
-from authlib.integrations.sqla_oauth2 import (
+from authlib.authlib.integrations.sqla_oauth2 import (
     OAuth2ClientMixin,
     OAuth2AuthorizationCodeMixin,
     OAuth2TokenMixin,

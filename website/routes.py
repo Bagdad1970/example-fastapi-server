@@ -8,6 +8,7 @@ from sqlalchemy import select
 from models import Users, OAuth2Client
 from database import get_db
 from werkzeug.security import gen_salt
+from oauth2 import authorization
 
 
 router = APIRouter(prefix='/home')
@@ -33,7 +34,7 @@ async def get_home(request: Request, db: AsyncSession = Depends(get_db)):
     else:
         clients = []
 
-    return templates.TemplateResponse('home.html', {"request" : request})
+    return templates.TemplateResponse('home.html', {"request" : request, "clients": clients})
 
 
 @router.post('/')
@@ -97,3 +98,8 @@ async def create_client(request: Request, client_name=Form(), client_uri=Form(),
     db.add(client)
     await db.commit()
     return RedirectResponse('/')
+
+
+@router.post('/oauth/token')
+async def issue_token(request: Request):
+    return authorization.create_token_response(request)
