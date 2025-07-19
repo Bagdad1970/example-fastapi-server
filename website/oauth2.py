@@ -1,4 +1,6 @@
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import async_scoped_session
+from asyncio import current_task
 
 from authlib.authlib.integrations.fastapi_oauth2 import (
     AuthorizationServer,
@@ -14,9 +16,9 @@ from authlib.authlib.oauth2.rfc6749 import grants
 from authlib.authlib.oauth2.rfc7636 import CodeChallenge
 from models import Users
 from models import OAuth2Client, OAuth2AuthorizationCode, OAuth2Token
-from database import get_db
+from database import AsyncSessionLocal
 
-session = get_db()
+session = async_scoped_session(AsyncSessionLocal, scopefunc=current_task)
 
 
 class AuthorizationCodeGrant(grants.AuthorizationCodeGrant):
