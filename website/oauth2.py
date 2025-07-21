@@ -2,18 +2,18 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_scoped_session
 from asyncio import current_task
 
-from authlib.authlib.integrations.fastapi_oauth2 import (
+from authlib.integrations.fastapi_oauth2 import (
     AuthorizationServer,
     ResourceProtector,
 )
-from authlib.authlib.integrations.sqla_oauth2 import (
+from authlib.integrations.sqla_oauth2 import (
     create_query_client_func,
     create_save_token_func,
     create_revocation_endpoint,
     create_bearer_token_validator
 )
-from authlib.authlib.oauth2.rfc6749 import grants
-from authlib.authlib.oauth2.rfc7636 import CodeChallenge
+from authlib.oauth2.rfc6749 import grants
+from authlib.oauth2.rfc7636 import CodeChallenge
 from models import Users
 from models import OAuth2Client, OAuth2AuthorizationCode, OAuth2Token
 from database import AsyncSessionLocal
