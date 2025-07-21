@@ -49,7 +49,7 @@ async def create_home(request: Request, username: str = Form(), db: AsyncSession
     next_page = request.query_params.get('next')
     if next_page:
         return RedirectResponse(next_page)
-    return RedirectResponse('/')
+    return RedirectResponse('/home')
 
 
 @router.get('/logout')
@@ -62,7 +62,7 @@ def logout(request: Request):
 async def get_client(request: Request, db: AsyncSession = Depends(get_db)):
     user = await current_user(request, db)
     if not user:
-        return RedirectResponse('/')
+        return RedirectResponse('/home')
     return templates.TemplateResponse('create_client.html', {"request" : request})
 
 
