@@ -102,4 +102,5 @@ async def create_client(request: Request, client_name=Form(), client_uri=Form(),
 
 @router.post('/oauth/token')
 async def issue_token(request: Request):
-    return authorization.create_token_response(request)
+    token_response = await authorization.create_token_response(request)
+    return token_response
